@@ -31,13 +31,13 @@
     .home-section {
         padding-left: 10px !important;
     }
-    
+
     @media (min-width: 768px) {
         .home-section {
             padding-left: 20px !important;
         }
     }
-    
+
     /* Header responsiveness */
     .home-content {
         display: flex;
@@ -46,18 +46,18 @@
         gap: 10px;
         padding: 10px 0;
     }
-    
+
     .home-content .text {
         font-size: 1.2rem;
         word-break: break-word;
     }
-    
+
     @media (min-width: 768px) {
         .home-content .text {
             font-size: 1.5rem;
         }
     }
-    
+
     /* DateTime section */
     .datetime {
         display: flex;
@@ -67,52 +67,55 @@
         padding: 10px;
         text-align: center;
     }
-    
+
     @media (min-width: 576px) {
         .datetime {
             flex-direction: row;
             justify-content: center;
         }
     }
-    
-    .time, .date {
+
+    .time,
+    .date {
         color: #fff;
         font-size: 0.9rem;
         white-space: nowrap;
     }
-    
+
     @media (min-width: 768px) {
-        .time, .date {
+
+        .time,
+        .date {
             font-size: 1rem;
         }
     }
-    
+
     /* Card improvements */
     .card-stats {
         margin-bottom: 20px;
         min-height: 120px;
         transition: transform 0.2s ease;
     }
-    
+
     .card-stats:hover {
         transform: translateY(-2px);
     }
-    
+
     .card-content h3 {
         font-size: 1.5rem;
         margin: 10px 0;
     }
-    
+
     @media (max-width: 576px) {
         .card-content h3 {
             font-size: 1.2rem;
         }
-        
+
         .card-content p {
             font-size: 0.85rem;
         }
     }
-    
+
     /* Chart container responsiveness */
     .chart-container {
         position: relative;
@@ -120,34 +123,34 @@
         height: 300px;
         margin-bottom: 20px;
     }
-    
+
     @media (min-width: 768px) {
         .chart-container {
             height: 400px;
         }
     }
-    
+
     #myChart {
         max-width: 100%;
         height: auto !important;
     }
-    
+
     /* Table responsiveness */
     .table-responsive {
         border: none;
         box-shadow: none;
     }
-    
+
     .table {
         font-size: 0.85rem;
         margin-bottom: 0;
     }
-    
+
     @media (max-width: 768px) {
         .table {
             font-size: 0.75rem;
         }
-        
+
         .table th,
         .table td {
             padding: 8px 4px;
@@ -156,59 +159,59 @@
             text-overflow: ellipsis;
             max-width: 100px;
         }
-        
+
         .table th:first-child,
         .table td:first-child {
             max-width: 30px;
         }
     }
-    
+
     /* Todo list card */
     .todo-card {
         min-height: 300px;
         margin-bottom: 20px;
     }
-    
+
     @media (max-width: 992px) {
         .todo-card {
             margin-top: 20px;
         }
     }
-    
+
     /* Progress bar responsiveness */
     .progress {
         height: 6px;
         margin-top: 10px;
     }
-    
+
     /* Icon responsiveness */
     .material-icons {
         font-size: 2rem;
     }
-    
+
     @media (max-width: 576px) {
         .material-icons {
             font-size: 1.5rem;
         }
     }
-    
+
     /* Utility classes for better spacing */
     .mobile-padding {
         padding: 0 10px;
     }
-    
+
     @media (min-width: 768px) {
         .mobile-padding {
             padding: 0 20px;
         }
     }
-    
+
     /* Ensure container fluid doesn't overflow */
     .container-fluid {
         padding-left: 10px;
         padding-right: 10px;
     }
-    
+
     @media (min-width: 768px) {
         .container-fluid {
             padding-left: 15px;
@@ -318,23 +321,23 @@
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
-                    <a href="" style="text-decoration: none;">
+                    <a href="{% url 'addmeeting' %}" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
                             <div class="card-header">
                                 <div class="icon icon-rose">
-                                    <span class="material-icons">shopping_cart</span>
+                                    <span class="material-icons">meeting_room</span>
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Total Architect</strong></p>
-                                <h3 class="card-title">{{total_architect}}</h3>
+                                <p class="category"><strong>Meeting</strong></p>
+                                <h3 class="card-title">{{Meeting}}</h3>
                             </div>
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
                     <a href="" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
@@ -347,16 +350,16 @@
                                 <p class="category"><strong>Revenue</strong></p>
                                 <h3 class="card-title">&#8377; {{tot_pay}}</h3>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                                         role="progressbar" aria-label="Revenue progress" 
-                                         aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" 
-                                         style="width: 75%; background-color: #FF5F1F;"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        role="progressbar" aria-label="Revenue progress" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 75%; background-color: #FF5F1F;"></div>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
                     <a href="{% url 'addEmployee' %}" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
@@ -428,9 +431,9 @@
                                             <td style="color: #FF5F1F;">{{forloop.counter}}</td>
                                             <td>{{i.to_whom}}</td>
                                             <td>
-                                                <a href="#" class="name text-white text-decoration-none" 
-                                                   title="{{i.Task}}">
-                                                   {{i.Task|truncatechars:20}}
+                                                <a href="#" class="name text-white text-decoration-none"
+                                                    title="{{i.Task}}">
+                                                    {{i.Task|truncatechars:20}}
                                                 </a>
                                             </td>
                                             <td class="d-none d-sm-table-cell">{{i.dateandtime|date:"M d"}}</td>
@@ -467,13 +470,13 @@
 
 <!--chart-->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const ctx = document.getElementById('myChart');
         if (ctx) {
             const myChart = new Chart(ctx, config);
-            
+
             // Make chart responsive to window resize
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', function () {
                 myChart.resize();
             });
         }
@@ -497,7 +500,7 @@
 
     function formatDate(date) {
         const DAYS = [
-            "Sunday", "Monday", "Tuesday", "Wednesday", 
+            "Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday"
         ];
         const MONTHS = [
