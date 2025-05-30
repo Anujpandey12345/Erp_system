@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Employee.models import Employee
-from Employee.forms import EmployeeForm
+from Employee.forms import EmployeeForm, MeetingForm
 from CodingIndiaErp.forms import UserCreationForm
 # Create your views here.
 def AddEmployee(request):
@@ -20,3 +20,18 @@ def AddEmployee(request):
             print("form2 error", form2.errors)
     context = {'form': form}
     return render(request, 'Employee/addEmployee.html', context)
+
+
+
+def AddMeeting(request):
+    members = Employee.objects.all()
+    form = MeetingForm()
+    if request.method == "POST":
+        form = MeetingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("Form saved Of Meeting")
+        else:
+            print("Form error : ", form.errors)
+    context = {'members': members}
+    return render(request, 'Employee/addmeeting.html', context)

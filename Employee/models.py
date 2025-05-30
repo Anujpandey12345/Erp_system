@@ -19,3 +19,14 @@ class Employee(models.Model):
     def __str__(self):
         return self.name
 
+
+class Meeting(models.Model):
+    title = models.CharField(max_length=50)
+    agenda = models.TextField()
+    # member = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    member = models.ManyToManyField(Employee)
+    DatenTime = models.DateTimeField(auto_now_add=True)
+    meeting_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
