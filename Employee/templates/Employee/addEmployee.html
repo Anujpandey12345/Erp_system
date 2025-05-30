@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container" style="width: 80%; margin: 0 auto;">
+  <form method="post" action="">
+    <div class="row">
+
+      {% csrf_token %}
+      {% comment %} {{form}}
+      {% endcomment %}
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Your Name :"
+          name="name">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Phone</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your Phone "
+          name="phone">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter your Email"
+          name="email">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Username</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your Username"
+          name="username">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter your Password"
+          name="password1">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Confirm password</label>
+        <input type="password" class="form-control" id="exampleFormControlInput1"
+          placeholder="Enter your Confirm Password" name="password2">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Date of birth</label>
+        <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Enter your DOB" name="dob">
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="exampleFormControlInput1" class="form-label">Department</label>
+        <select name="department" id="department" class="form-control form-select">
+          <option value="1">IT</option>
+          <option value="2">Eng</option>
+        </select>
+
+      </div>
+      <input type="submit" class="btn btn-success" style="width: 50%; margin: auto;">
+  </form>
+</div>
+</div>
+{% endblock content %}

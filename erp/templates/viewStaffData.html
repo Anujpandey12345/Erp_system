@@ -1,0 +1,26 @@
+{% extends 'index.html '%}
+{% block content %}
+
+
+<h1>Staff - {{data.username}}</h1>
+<div>
+    <label for="firstNameInput" class="form-label">First Name</label>
+    <input readonly type="text" class="form-control" name="first_name" id="firstNameInput" value = {{data.first_name}} required>
+</div>
+
+<div>
+    <label for="lastNameInput" class="form-label">Last Name</label>
+    <input readonly type="text" class="form-control" name="last_name" id="lastNameInput" value = {{data.last_name}} required>
+</div>
+
+<div>
+    <label for="emailInput" class="form-label">Email address</label>
+    <input readonly type="email" class="form-control" name="email" id="emailInput" value = {{data.email}} required>
+</div>
+
+<div>
+    <label for="usernameInput" class="form-label">Username</label>
+    <input readonly type="text" class="form-control" name="username" id="usernameInput" value = {{data.username}}  required>
+</div>
+
+{% endblock %}

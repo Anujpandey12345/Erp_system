@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+    OTP: {{otp}}
+    <input type="text" name="otp" id="otp">
+    <script>
+        $('#otp').change(function() {
+            var otp = $('#otp').val();
+            console.log('OTP', otp);
+            if (otp == '{{ otp }}') {
+                console.log('OTP Matched');  
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'verifyEmail' %}",
+                    data: { 'otp': otp, 'first_name': "{{first_name}}", 'last_name': "{{last_name}}", 'username': "{{username}}", 'email':"{{email}}", 'password1': "{{password1}}", 'password2': "{{password2}}"}, // use 'otp' here, not 'opt'
+                    success: function(data) {
+                        console.log("OTP checked");
+                        window.location.href = "/";
+                    }
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>
