@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from Employee.models import Employee
+from Employee.models import Employee, Meeting
 from Employee.forms import EmployeeForm, MeetingForm
 from CodingIndiaErp.forms import UserCreationForm
 # Create your views here.
@@ -35,3 +35,13 @@ def AddMeeting(request):
             print("Form error : ", form.errors)
     context = {'members': members}
     return render(request, 'Employee/addmeeting.html', context)
+
+
+
+# View the Staff Details 
+
+def ShowMeetingDetails(request):
+    data = Meeting.objects.all() # ojects.all() means all the objects which is inside the class
+    print("Data: ", data)
+    context = {'data' : data}
+    return render(request, 'Employee/Showmeetingdetails.html', context)
