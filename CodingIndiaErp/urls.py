@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include('erp.urls')),
     path('project/', include('project.urls')),
     path('Employee/', include('Employee.urls')),
+    # path('calender/', include('calender.urls')),
+
 
     # For signup
     path('signup/', SignUpView, name='signup'),

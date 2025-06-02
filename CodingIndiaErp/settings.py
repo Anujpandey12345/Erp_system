@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'erp',
     'project',
     'Employee',
+    # 'calender',
 ]
 
 MIDDLEWARE = [
@@ -120,16 +121,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # if you're using a global static folder
 
+# Optional global static folder — include only if the folder exists
+STATIC_DIR = BASE_DIR / 'static'
+if STATIC_DIR.exists():
+    STATICFILES_DIRS = [STATIC_DIR]
+else:
+    STATICFILES_DIRS = []  # Avoid warning if folder does not exist
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
