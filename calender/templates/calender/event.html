@@ -7,12 +7,25 @@
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         background-color: #fff;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
     }
     
     .calendar-container table {
         width: 100%;
         border-collapse: collapse;
         margin: 10px 0;
+        table-layout: fixed;
     }
     
     .calendar-container table, 
@@ -23,16 +36,21 @@
     
     .calendar-container th {
         background-color: #f8f9fa;
-        padding: 10px;
+        padding: 12px 8px;
         text-align: center;
         font-weight: bold;
+        font-size: 0.9em;
+        word-wrap: break-word;
     }
     
     .calendar-container td {
-        padding: 10px;
+        padding: 12px 8px;
         text-align: center;
-        height: 40px;
+        height: 50px;
         vertical-align: middle;
+        transition: background-color 0.2s ease;
+        word-wrap: break-word;
+        font-size: 0.9em;
     }
     
     .calendar-container td:hover {
@@ -63,28 +81,236 @@
         color: #333;
     }
     
+    .calendar-header h1 {
+        font-size: 2em;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    
+    .time-display {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #666;
+        font-size: 0.95em;
+    }
+    
     .copyright-text {
         text-align: center;
         margin-top: 20px;
         color: #666;
-        font-size: 0.9em;
+        font-size: 0.85em;
+    }
+    
+    .calendar-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Tablet styles */
+    @media screen and (max-width: 768px) {
+        .container {
+            width: 95%;
+            padding: 15px;
+        }
+        
+        .calendar-container {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .calendar-header h1 {
+            font-size: 1.6em;
+        }
+        
+        .calendar-container th,
+        .calendar-container td {
+            padding: 10px 6px;
+            font-size: 0.85em;
+        }
+        
+        .calendar-container td {
+            height: 45px;
+        }
+        
+        .time-display {
+            font-size: 0.9em;
+        }
+        
+        .copyright-text {
+            font-size: 0.8em;
+        }
+    }
+    
+    /* Mobile styles */
+    @media screen and (max-width: 480px) {
+        .container {
+            width: 98%;
+            padding: 10px;
+        }
+        
+        .calendar-container {
+            padding: 12px;
+            border-radius: 6px;
+            border-width: 1px;
+        }
+        
+        .calendar-header h1 {
+            font-size: 1.4em;
+        }
+        
+        .calendar-container th,
+        .calendar-container td {
+            padding: 8px 4px;
+            font-size: 0.8em;
+        }
+        
+        .calendar-container td {
+            height: 40px;
+        }
+        
+        .calendar-container th {
+            font-size: 0.75em;
+        }
+        
+        .time-display {
+            font-size: 0.85em;
+            margin-bottom: 12px;
+        }
+        
+        .copyright-text {
+            font-size: 0.75em;
+            margin-top: 15px;
+        }
+        
+        /* Make table horizontally scrollable on very small screens */
+        .calendar-wrapper {
+            min-width: 300px;
+        }
+    }
+    
+    /* Extra small mobile styles */
+    @media screen and (max-width: 320px) {
+        .calendar-container {
+            padding: 8px;
+        }
+        
+        .calendar-header h1 {
+            font-size: 1.2em;
+        }
+        
+        .calendar-container th,
+        .calendar-container td {
+            padding: 6px 2px;
+            font-size: 0.75em;
+        }
+        
+        .calendar-container td {
+            height: 35px;
+        }
+        
+        .time-display {
+            font-size: 0.8em;
+        }
+    }
+    
+    /* High DPI displays */
+    @media screen and (-webkit-min-device-pixel-ratio: 2), 
+           screen and (min-resolution: 192dpi) {
+        .calendar-container {
+            border-width: 1px;
+        }
+        
+        .calendar-container table, 
+        .calendar-container th, 
+        .calendar-container td {
+            border-width: 0.5px;
+        }
+    }
+    
+    /* Print styles */
+    @media print {
+        .calendar-container {
+            border: 1px solid #000;
+            box-shadow: none;
+            page-break-inside: avoid;
+        }
+        
+        .current-date {
+            animation: none;
+            background-color: #ccc !important;
+            color: #000 !important;
+        }
+        
+        .calendar-container td:hover {
+            background-color: transparent;
+        }
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        .calendar-container {
+            background-color: #2d2d2d;
+            border-color: #555;
+            color: #fff;
+        }
+        
+        .calendar-container th {
+            background-color: #3d3d3d;
+            color: #fff;
+        }
+        
+        .calendar-container table, 
+        .calendar-container th, 
+        .calendar-container td {
+            border-color: #555;
+        }
+        
+        .calendar-container td:hover {
+            background-color: #404040;
+        }
+        
+        .calendar-header {
+            color: #fff;
+        }
+        
+        .time-display,
+        .copyright-text {
+            color: #ccc;
+        }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        .current-date {
+            animation: none;
+        }
+        
+        .calendar-container td {
+            transition: none;
+        }
+    }
+    
+    /* Focus styles for accessibility */
+    .calendar-container td:focus {
+        outline: 2px solid #007bff;
+        outline-offset: -2px;
     }
 </style>
 
-<div class="container" style="width: 40%; margin: 0 auto;">
+<div class="container">
     <div class="calendar-container">
-        <p style="text-align: center; margin-bottom: 15px;">As of {{ time }}</p>
+        <div class="time-display">As of {{ time|default:"N/A" }}</div>
         
         <div class="calendar-header">
-            <h1>{{ month }} {{ year }}</h1>
+            <h1>{{ month|default:"Calendar" }} {{ year|default:"" }}</h1>
         </div>
         
         <div class="calendar-wrapper">
-            {{ cal|safe }}
+            {{ cal|safe|default:"<p>Calendar not available</p>" }}
         </div>
         
         <div class="copyright-text">
-            Copyright (c) {{ current_year }}
+            Copyright (c) {{ current_year|default:"2025" }}
         </div>
     </div>
 </div>
@@ -92,22 +318,122 @@
 <script>
     // Function to highlight current date with blinking effect
     function highlightCurrentDate() {
-        const today = new Date();
-        const currentDay = today.getDate();
-        
-        // Find all table cells in the calendar
-        const calendarCells = document.querySelectorAll('.calendar-container td');
-        
-        calendarCells.forEach(cell => {
-            // Check if cell contains the current day number
-            if (cell.textContent.trim() === currentDay.toString()) {
-                // Add current-date class for blinking effect
-                cell.classList.add('current-date');
+        try {
+            const today = new Date();
+            const currentDay = today.getDate();
+            
+            // Find all table cells in the calendar
+            const calendarCells = document.querySelectorAll('.calendar-container td');
+            
+            if (calendarCells.length === 0) {
+                console.warn('No calendar cells found');
+                return;
             }
-        });
+            
+            calendarCells.forEach(cell => {
+                try {
+                    // Check if cell contains the current day number
+                    const cellText = cell.textContent ? cell.textContent.trim() : '';
+                    if (cellText === currentDay.toString()) {
+                        // Add current-date class for blinking effect
+                        cell.classList.add('current-date');
+                        // Add accessibility attributes
+                        cell.setAttribute('aria-label', `Current date: ${cellText}`);
+                        cell.setAttribute('tabindex', '0');
+                    }
+                } catch (cellError) {
+                    console.warn('Error processing calendar cell:', cellError);
+                }
+            });
+        } catch (error) {
+            console.error('Error highlighting current date:', error);
+        }
     }
     
-    // Run the function when the page loads
-    document.addEventListener('DOMContentLoaded', highlightCurrentDate);
+    // Function to handle keyboard navigation
+    function handleKeyboardNavigation(event) {
+        if (!event.target.closest('.calendar-container td')) return;
+        
+        const cells = Array.from(document.querySelectorAll('.calendar-container td'));
+        const currentIndex = cells.indexOf(event.target);
+        let nextIndex = currentIndex;
+        
+        switch (event.key) {
+            case 'ArrowRight':
+                nextIndex = Math.min(currentIndex + 1, cells.length - 1);
+                break;
+            case 'ArrowLeft':
+                nextIndex = Math.max(currentIndex - 1, 0);
+                break;
+            case 'ArrowDown':
+                nextIndex = Math.min(currentIndex + 7, cells.length - 1);
+                break;
+            case 'ArrowUp':
+                nextIndex = Math.max(currentIndex - 7, 0);
+                break;
+            default:
+                return;
+        }
+        
+        if (nextIndex !== currentIndex) {
+            event.preventDefault();
+            cells[nextIndex].focus();
+        }
+    }
+    
+    // Function to handle window resize
+    function handleResize() {
+        // Debounce resize events
+        clearTimeout(window.resizeTimeout);
+        window.resizeTimeout = setTimeout(() => {
+            // Force table layout recalculation on mobile
+            const table = document.querySelector('.calendar-container table');
+            if (table && window.innerWidth <= 480) {
+                table.style.minWidth = '300px';
+            } else if (table) {
+                table.style.minWidth = 'auto';
+            }
+        }, 150);
+    }
+    
+    // Initialize everything when DOM is loaded
+    function initialize() {
+        try {
+            highlightCurrentDate();
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', handleKeyboardNavigation);
+            
+            // Add resize handler
+            window.addEventListener('resize', handleResize);
+            
+            // Make calendar cells focusable for accessibility
+            const calendarCells = document.querySelectorAll('.calendar-container td');
+            calendarCells.forEach((cell, index) => {
+                if (cell.textContent && cell.textContent.trim()) {
+                    cell.setAttribute('tabindex', '0');
+                    cell.setAttribute('role', 'button');
+                    cell.setAttribute('aria-label', `Day ${cell.textContent.trim()}`);
+                }
+            });
+            
+            console.log('Calendar initialized successfully');
+        } catch (error) {
+            console.error('Error initializing calendar:', error);
+        }
+    }
+    
+    // Run initialization when the page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+        initialize();
+    }
+    
+    // Handle potential errors in template variables
+    window.addEventListener('error', function(event) {
+        console.error('Calendar error:', event.error);
+        // Could add user-friendly error message here if needed
+    });
 </script>
 {% endblock content %}
