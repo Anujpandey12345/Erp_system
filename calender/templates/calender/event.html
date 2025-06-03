@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+{% block content %}
+<style>
+    .calendar-container {
+        border: 2px solid #333;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    
+    .calendar-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+    
+    .calendar-container table, 
+    .calendar-container th, 
+    .calendar-container td {
+        border: 1px solid #ddd;
+    }
+    
+    .calendar-container th {
+        background-color: #f8f9fa;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .calendar-container td {
+        padding: 10px;
+        text-align: center;
+        height: 40px;
+        vertical-align: middle;
+    }
+    
+    .calendar-container td:hover {
+        background-color: #e9ecef;
+        cursor: pointer;
+    }
+    
+    /* Current date blinking animation */
+    .current-date {
+        background-color: #ff6b6b !important;
+        color: white !important;
+        font-weight: bold;
+        animation: blink 1.5s infinite;
+        border-radius: 5px;
+    }
+    
+    @keyframes blink {
+        0% { opacity: 1; background-color: #ff6b6b; }
+        25% { opacity: 0.7; background-color: #ff8787; }
+        50% { opacity: 0.4; background-color: #ffa8a8; }
+        75% { opacity: 0.7; background-color: #ff8787; }
+        100% { opacity: 1; background-color: #ff6b6b; }
+    }
+    
+    .calendar-header {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .copyright-text {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+        font-size: 0.9em;
+    }
+</style>
+
+<div class="container" style="width: 40%; margin: 0 auto;">
+    <div class="calendar-container">
+        <p style="text-align: center; margin-bottom: 15px;">As of {{ time }}</p>
+        
+        <div class="calendar-header">
+            <h1>{{ month }} {{ year }}</h1>
+        </div>
+        
+        <div class="calendar-wrapper">
+            {{ cal|safe }}
+        </div>
+        
+        <div class="copyright-text">
+            Copyright (c) {{ current_year }}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to highlight current date with blinking effect
+    function highlightCurrentDate() {
+        const today = new Date();
+        const currentDay = today.getDate();
+        
+        // Find all table cells in the calendar
+        const calendarCells = document.querySelectorAll('.calendar-container td');
+        
+        calendarCells.forEach(cell => {
+            // Check if cell contains the current day number
+            if (cell.textContent.trim() === currentDay.toString()) {
+                // Add current-date class for blinking effect
+                cell.classList.add('current-date');
+            }
+        });
+    }
+    
+    // Run the function when the page loads
+    document.addEventListener('DOMContentLoaded', highlightCurrentDate);
+</script>
+{% endblock content %}
