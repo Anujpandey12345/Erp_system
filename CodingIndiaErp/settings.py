@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'erp',
     'project',
     'Employee',
-    # 'calender',
+    'calender',
+
 ]
 
 MIDDLEWARE = [
