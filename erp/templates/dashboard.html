@@ -307,7 +307,7 @@
             <!-- Stats Cards Row -->
             <div class="row g-3">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
-                    <a href="{% url 'create_project' %}" style="text-decoration: none;">
+                    <a href="{% url 'show_project_data' %}" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
                             <div class="card-header">
                                 <div class="icon icon-warning">
@@ -323,7 +323,7 @@
                 </div>
 
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
-                    <a href="{% url 'addmeeting' %}" style="text-decoration: none;">
+                    <a href="{% url 'showmeetingdetails' %}" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
                             <div class="card-header">
                                 <div class="icon icon-rose">
@@ -369,7 +369,7 @@
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Total Staff</strong></p>
+                                <p class="category"><strong> Staff</strong></p>
                                 <h3 class="card-title">{{staff}}</h3>
                             </div>
                         </div>
@@ -377,77 +377,76 @@
                 </div>
 
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
-                    <a href="" style="text-decoration: none;">
+                    <a href="{% url 'calender_default' %}" style="text-decoration: none;">
                         <div class="card card-stats bg-dark">
                             <div class="card-header">
                                 <div class="icon icon-success">
-                                    <span class="material-icons">attach_money</span>
+                                    <span class="material-icons">calendar_today</span>
                                 </div>
                             </div>
                             <div class="card-content">
-                                <p class="category"><strong>Monthly Expense</strong></p>
+                                <p class="category"><strong>Calendar</strong></p>
                                 <h3 class="card-title">{{total_expenses}}</h3>
                             </div>
                         </div>
                     </a>
                 </div>
-            </div>
 
-            <!-- Chart and Todo Section -->
-            <div class="row mt-4 g-3">
-                <div class="col-lg-7 col-12">
-                    <div class="card bg-dark">
-                        <div class="card-header">
-                            <h4 class="text-white mb-0">Project Statistics</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="myChart"></canvas>
+                <!-- Chart and Todo Section -->
+                <div class="row mt-4 g-3">
+                    <div class="col-lg-7 col-12">
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <h4 class="text-white mb-0">Project Statistics</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="myChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-lg-5 col-12">
-                    <a href="" style="text-decoration: none;">
-                        <div class="card bg-dark todo-card">
-                            <div class="card-header card-header-text">
-                                <h4 class="card-title text-white">To-Do-List</h4>
-                                <p class="category text-muted">Today's Work</p>
+                    <div class="col-lg-5 col-12">
+                        <a href="" style="text-decoration: none;">
+                            <div class="card bg-dark todo-card">
+                                <div class="card-header card-header-text">
+                                    <h4 class="card-title text-white">To-Do-List</h4>
+                                    <p class="category text-muted">Today's Work</p>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover text-white">
+                                        <thead class="text-primary">
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Staff</th>
+                                                <th scope="col">Task</th>
+                                                <th scope="col" class="d-none d-sm-table-cell">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in sometasks %}
+                                            <tr>
+                                                <td style="color: #FF5F1F;">{{forloop.counter}}</td>
+                                                <td>{{i.to_whom}}</td>
+                                                <td>
+                                                    <a href="#" class="name text-white text-decoration-none"
+                                                        title="{{i.Task}}">
+                                                        {{i.Task|truncatechars:20}}
+                                                    </a>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">{{i.dateandtime|date:"M d"}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="card-content table-responsive">
-                                <table class="table table-hover text-white">
-                                    <thead class="text-primary">
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Staff</th>
-                                            <th scope="col">Task</th>
-                                            <th scope="col" class="d-none d-sm-table-cell">Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for i in sometasks %}
-                                        <tr>
-                                            <td style="color: #FF5F1F;">{{forloop.counter}}</td>
-                                            <td>{{i.to_whom}}</td>
-                                            <td>
-                                                <a href="#" class="name text-white text-decoration-none"
-                                                    title="{{i.Task}}">
-                                                    {{i.Task|truncatechars:20}}
-                                                </a>
-                                            </td>
-                                            <td class="d-none d-sm-table-cell">{{i.dateandtime|date:"M d"}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 <script>
