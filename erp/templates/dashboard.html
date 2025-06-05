@@ -406,44 +406,31 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-5 col-12">
-                        <a href="" style="text-decoration: none;">
+                        <a href="{% url 'taskpage' %}" style="text-decoration: none;">
                             <div class="card bg-dark todo-card">
                                 <div class="card-header card-header-text">
                                     <h4 class="card-title text-white">To-Do-List</h4>
-                                    <p class="category text-muted">Today's Work</p>
-                                </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table table-hover text-white">
-                                        <thead class="text-primary">
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Staff</th>
-                                                <th scope="col">Task</th>
-                                                <th scope="col" class="d-none d-sm-table-cell">Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for i in sometasks %}
-                                            <tr>
-                                                <td style="color: #FF5F1F;">{{forloop.counter}}</td>
-                                                <td>{{i.to_whom}}</td>
-                                                <td>
-                                                    <a href="#" class="name text-white text-decoration-none"
-                                                        title="{{i.Task}}">
-                                                        {{i.Task|truncatechars:20}}
-                                                    </a>
-                                                </td>
-                                                <td class="d-none d-sm-table-cell">{{i.dateandtime|date:"M d"}}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
+                                    <p class="category text-muted">Click Here 👈</p>
+                                    <p class="text-white small mt-3"
+                                        style="line-height: 1.5; max-height: 220px; overflow-y: auto;">
+                                        A well-organized To-Do List is an essential tool for managing your daily
+                                        responsibilities effectively and efficiently. It helps you prioritize your
+                                        tasks, stay focused on your goals, and reduces the stress of forgetting
+                                        important duties. By clicking on this section, you will be directed to today’s
+                                        list of tasks, allowing you to view, update, or add new items as needed. Whether
+                                        it’s work assignments, personal errands, or project deadlines, having all tasks
+                                        clearly outlined keeps your day structured and productive. This system supports
+                                        better time management, ensuring you allocate sufficient effort to each task
+                                        without feeling overwhelmed. Regularly reviewing your To-Do List fosters
+                                        accountability and helps track progress over time.
+                                    </p>
                                 </div>
                             </div>
                         </a>
                     </div>
+
+
                 </div>
             </div>
         </div>
