@@ -26,6 +26,8 @@ urlpatterns = [
     path('project/', include('project.urls')),
     path('Employee/', include('Employee.urls')),
     path('calender/', include('calender.urls')),
+    path('task/', include('task.urls')),
+
 
 
     # For signup
