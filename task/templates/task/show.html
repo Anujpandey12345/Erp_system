@@ -1,0 +1,434 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+    /* Base styles */
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    /* Tech background elements */
+    .tech-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+        z-index: -10;
+    }
+
+    .circuit-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 25px 25px, rgba(255, 140, 0, 0.1) 2px, transparent 2px),
+            linear-gradient(to right, rgba(255, 140, 0, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 140, 0, 0.05) 1px, transparent 1px);
+        background-size: 50px 50px, 50px 50px, 50px 50px;
+        z-index: -9;
+        animation: gridPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+    }
+
+    /* Circuit lines - responsive positioning */
+    .circuit-line {
+        position: fixed;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, #ff8c00 20%, #ff6600 50%, #ff8c00 80%, transparent 100%);
+        z-index: -8;
+        animation: circuitFlow 6s linear infinite;
+    }
+
+    .circuit-line-1 {
+        top: 15%;
+        left: 0;
+        width: 60%;
+    }
+
+    .circuit-line-2 {
+        top: 35%;
+        right: 0;
+        width: 70%;
+    }
+
+    .circuit-line-3 {
+        top: 65%;
+        left: 0;
+        width: 50%;
+    }
+
+    .circuit-line-4 {
+        top: 85%;
+        right: 0;
+        width: 80%;
+    }
+
+    .circuit-vertical {
+        position: fixed;
+        width: 2px;
+        background: linear-gradient(0deg, transparent 0%, #ff8c00 20%, #ff6600 50%, #ff8c00 80%, transparent 100%);
+        z-index: -8;
+        animation: circuitFlowVertical 8s linear infinite;
+    }
+
+    .circuit-vertical-1 {
+        left: 10%;
+        top: 0;
+        height: 40%;
+    }
+
+    .circuit-vertical-2 {
+        right: 15%;
+        top: 20%;
+        height: 60%;
+    }
+
+    .circuit-vertical-3 {
+        left: 30%;
+        bottom: 0;
+        height: 45%;
+    }
+
+    .circuit-vertical-4 {
+        right: 35%;
+        top: 10%;
+        height: 50%;
+    }
+
+    @keyframes circuitFlow {
+        0% { transform: translateX(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateX(100vw); opacity: 0; }
+    }
+
+    @keyframes circuitFlowVertical {
+        0% { transform: translateY(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* Digital particles */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -7;
+        pointer-events: none;
+    }
+
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #ff8c00;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff8c00;
+        animation: particleFloat 10s linear infinite;
+    }
+
+    .particle1 { left: 10%; animation-delay: 0s; }
+    .particle2 { left: 30%; animation-delay: 2s; }
+    .particle3 { left: 50%; animation-delay: 4s; }
+    .particle4 { left: 70%; animation-delay: 6s; }
+    .particle5 { left: 90%; animation-delay: 8s; }
+
+    @keyframes particleFloat {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Table container - responsive design */
+    .table-container {
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 140, 0, 0.3);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 140, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .table-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+
+    .table-container h1 {
+        color: #ff8c00;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        letter-spacing: 2px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .scan-line {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, #ff8c00 50%, transparent 100%);
+        margin: 1rem 0 2rem 0;
+        animation: scanMove 2s ease-in-out infinite;
+    }
+
+    @keyframes scanMove {
+        0%, 100% { transform: scaleX(0.1); opacity: 0.5; }
+        50% { transform: scaleX(1); opacity: 1; }
+    }
+
+    /* Responsive table styles */
+    .table {
+        width: 100%;
+        color: aliceblue !important;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem 0.75rem;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        text-align: left;
+        position: relative;
+    }
+
+    .table th {
+        background: rgba(0, 255, 255, 0.1);
+        color: #00ffff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #00ffff;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(0, 255, 255, 0.05);
+        transform: scale(1.01);
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .table tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            width: 95%;
+            margin: 1rem auto;
+            padding: 0 0.5rem;
+        }
+
+        .table-container {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+
+        .table-container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stack table on mobile */
+        .table,
+        .table thead,
+        .table tbody,
+        .table th,
+        .table td,
+        .table tr {
+            display: block;
+        }
+
+        .table thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        .table tr {
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 20, 40, 0.6);
+        }
+
+        .table td {
+            border: none;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            position: relative;
+            padding-left: 40% !important;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .table td:before {
+            content: attr(data-label) ": ";
+            position: absolute;
+            left: 6px;
+            width: 35%;
+            padding-right: 10px;
+            white-space: nowrap;
+            color: #00ffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Circuit lines adjustment for mobile */
+        .circuit-line,
+        .circuit-vertical {
+            opacity: 0.5;
+        }
+
+        .particle {
+            width: 3px;
+            height: 3px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            width: 98%;
+            margin: 0.5rem auto;
+        }
+
+        .table-container {
+            margin: 0.5rem 0;
+        }
+
+        .table-container h1 {
+            font-size: 1.5rem;
+        }
+
+        .table td {
+            padding-left: 45% !important;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Large screens */
+    @media (min-width: 1200px) {
+        .container {
+            width: 85%;
+            max-width: 1400px;
+        }
+
+        .table-container {
+            padding: 3rem;
+        }
+
+        .table-container h1 {
+            font-size: 3rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 1.25rem 1rem;
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <!-- Tech background elements -->
+        <div class="tech-bg"></div>
+        <div class="circuit-grid"></div>
+
+        <!-- Circuit lines -->
+        <div class="circuit-line circuit-line-1"></div>
+        <div class="circuit-line circuit-line-2"></div>
+        <div class="circuit-line circuit-line-3"></div>
+        <div class="circuit-line circuit-line-4"></div>
+
+        <div class="circuit-vertical circuit-vertical-1"></div>
+        <div class="circuit-vertical circuit-vertical-2"></div>
+        <div class="circuit-vertical circuit-vertical-3"></div>
+        <div class="circuit-vertical circuit-vertical-4"></div>
+
+        <!-- Digital particles -->
+        <div class="particles">
+            <div class="particle particle1"></div>
+            <div class="particle particle2"></div>
+            <div class="particle particle3"></div>
+            <div class="particle particle4"></div>
+            <div class="particle particle5"></div>
+        </div>
+
+        <div class="table-container">
+            <h1>Today Task</h1>
+            <div class="scan-line"></div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr. Number</th>
+                        <th scope="col">Staff Name</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in sometasks %}
+                    <tr>
+                        <td data-label="Sr. Number">{{forloop.counter}}</td>
+                        <td data-label="Staff Name">{{i.staff}}</td>
+                        <td data-label="Task">{{i.task}}</td>
+                        <td data-label="Date">{{i.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

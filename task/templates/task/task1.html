@@ -1,0 +1,528 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+    /* Global styles */
+    body {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Tech background elements */
+    .tech-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.03) 0%, transparent 70%);
+        z-index: -10;
+    }
+
+    .circuit-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 25px 25px, rgba(255, 140, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(to right, rgba(255, 140, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 140, 0, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px, 50px 50px, 50px 50px;
+        z-index: -9;
+        animation: gridPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+    }
+
+    /* Animated circuit lines */
+    .circuit-line {
+        position: fixed;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 140, 0, 0.8) 20%, rgba(255, 102, 0, 0.6) 50%, rgba(255, 140, 0, 0.8) 80%, transparent 100%);
+        z-index: -8;
+        animation: circuitFlow 8s linear infinite;
+    }
+
+    .circuit-line-1 {
+        top: 20%;
+        left: 0;
+        width: 60%;
+    }
+
+    .circuit-line-2 {
+        top: 60%;
+        right: 0;
+        width: 70%;
+    }
+
+    .circuit-line-3 {
+        top: 80%;
+        left: 0;
+        width: 40%;
+    }
+
+    @keyframes circuitFlow {
+        0% { transform: translateX(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateX(200%); opacity: 0; }
+    }
+
+    /* Floating particles */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -7;
+        pointer-events: none;
+    }
+
+    .particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #ff8c00;
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+        animation: particleFloat 12s linear infinite;
+    }
+
+    .particle1 { left: 15%; animation-delay: 0s; }
+    .particle2 { left: 35%; animation-delay: 3s; }
+    .particle3 { left: 65%; animation-delay: 6s; }
+    .particle4 { left: 85%; animation-delay: 9s; }
+
+    @keyframes particleFloat {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% {
+            transform: translateY(-50px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Main container */
+    .form-container {
+        max-width: 600px;
+        width: 90%;
+        margin: 3rem auto;
+        padding: 3rem;
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 140, 0, 0.3);
+        border-radius: 20px;
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 140, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .form-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.05), transparent);
+        animation: shimmer 4s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+
+    /* Form title */
+    .form-title {
+        color: #ff8c00;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #ff8c00, transparent);
+        animation: titleUnderline 2s ease-in-out infinite;
+    }
+
+    @keyframes titleUnderline {
+        0%, 100% { width: 50px; opacity: 0.5; }
+        50% { width: 150px; opacity: 1; }
+    }
+
+    /* Form groups */
+    .form-group {
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-group label {
+        display: block;
+        color: #ff8c00;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+    }
+
+    /* Form controls */
+    .form-control {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid rgba(255, 140, 0, 0.3);
+        border-radius: 12px;
+        color: #ffffff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #ff8c00;
+        box-shadow: 
+            0 0 20px rgba(255, 140, 0, 0.3),
+            inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateY(-2px);
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+    }
+
+    /* Submit button */
+    .btn {
+        width: 100%;
+        padding: 1.25rem 2rem;
+        background: linear-gradient(45deg, #ff8c00, #ff6600);
+        border: none;
+        border-radius: 15px;
+        color: #000000;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        margin-top: 1rem;
+        box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(255, 140, 0, 0.4);
+        background: linear-gradient(45deg, #ff9900, #ff7700);
+    }
+
+    .btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-container {
+            width: 95%;
+            margin: 2rem auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            padding: 0.875rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Adjust particles for mobile */
+        .particle {
+            width: 2px;
+            height: 2px;
+        }
+
+        .circuit-line {
+            opacity: 0.3;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            width: 98%;
+            margin: 1rem auto;
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            padding: 0.75rem 0.875rem;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+
+        .btn {
+            padding: 0.875rem 1.25rem;
+            font-size: 0.95rem;
+            border-radius: 12px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .form-container {
+            max-width: 700px;
+            padding: 4rem;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group label {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            padding: 1.25rem 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            padding: 1.5rem 2.5rem;
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Form animations */
+    .form-container {
+        animation: formSlideIn 0.8s ease-out;
+    }
+
+    @keyframes formSlideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.2s; }
+    .form-group:nth-child(2) { animation-delay: 0.4s; }
+    .form-group:nth-child(3) { animation-delay: 0.6s; }
+    .btn { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Input focus glow effect */
+    .form-control {
+        position: relative;
+    }
+
+    .form-group::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #ff8c00, #ff6600);
+        transition: width 0.3s ease;
+        border-radius: 1px;
+    }
+
+    .form-control:focus + .form-group::after {
+        width: 100%;
+    }
+
+    /* Loading state for form submission */
+    .btn.loading {
+        color: transparent;
+        pointer-events: none;
+    }
+
+    .btn.loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid transparent;
+        border-top: 2px solid #000000;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+</style>
+
+<div class="tech-bg"></div>
+<div class="circuit-grid"></div>
+
+<!-- Circuit lines -->
+<div class="circuit-line circuit-line-1"></div>
+<div class="circuit-line circuit-line-2"></div>
+<div class="circuit-line circuit-line-3"></div>
+
+<!-- Floating particles -->
+<div class="particles">
+    <div class="particle particle1"></div>
+    <div class="particle particle2"></div>
+    <div class="particle particle3"></div>
+    <div class="particle particle4"></div>
+</div>
+
+<div class="form-container">
+    <h2 class="form-title">Create New Task</h2>
+    
+    <form action="{% url 'create_todo' %}" method="post" id="todoForm">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="staff">Staff Name</label>
+            <input type="text" class="form-control" id="staff" name="staff" placeholder="Enter staff member name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="task">Task Description</label>
+            <input type="text" class="form-control" id="task" name="task" placeholder="Enter task details" required>
+        </div>
+        
+        <button type="submit" class="btn btn-success" id="submitBtn">
+            <span>Create Task</span>
+        </button>
+    </form>
+</div>
+
+<script>
+    // Form submission handling
+    document.getElementById('todoForm').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.classList.add('loading');
+        
+        // Optional: Add a small delay to show loading state
+        setTimeout(() => {
+            // Form will submit normally
+        }, 500);
+    });
+
+    // Add focus effects to form controls
+    const formControls = document.querySelectorAll('.form-control');
+    formControls.forEach(control => {
+        control.addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+        
+        control.addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+        });
+    });
+</script>
+
+{% endblock content %}
